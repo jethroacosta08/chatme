@@ -50,11 +50,10 @@ public class SignUpActivity extends AppCompatActivity {
 
                 Boolean error = false;
                 View focusView = null;
-                if(TextUtils.isEmpty(s_email_address_val))
+                if(TextUtils.isEmpty(s_email_address_val) && (s_email_address_val.length() < 6))
                 {
                     s_email_address.setError(getString(R.string.error_field_required));
                     focusView = s_email_address;
-                    error = true;
                 }
                 else if(!s_email_address_val.contains("@"))
                 {
@@ -74,9 +73,9 @@ public class SignUpActivity extends AppCompatActivity {
                     focusView = s_confirm_password;
                     error = true;
                 }
-                else if(!s_password_val.equals(s_confirm_password_val))
+                else if(!s_password_val.equals(s_confirm_password_val) || (s_password_val.length()<6))
                 {
-                    s_confirm_password.setError("Passwords do not match.");
+                    s_confirm_password.setError("Passwords do not match, must be atleast 6 characters.");
                     focusView = s_confirm_password;
                     error = true;
                 }
@@ -107,7 +106,7 @@ public class SignUpActivity extends AppCompatActivity {
                             showProgress(false);
                         } else {
                             showProgress(false);
-                            Toast.makeText(appContext, "Authentication failed.", Toast.LENGTH_SHORT).show();
+                            Toast.makeText(appContext, "Failed to connect to server.", Toast.LENGTH_SHORT).show();
                         }
                     }
                 });
