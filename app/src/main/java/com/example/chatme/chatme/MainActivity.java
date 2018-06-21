@@ -105,6 +105,10 @@ public class MainActivity extends AppCompatActivity {
                 Intent i = new Intent(appContext, LoginActivity.class);
                 startActivity(i);
                 return true;
+            case R.id.action_account:
+                Intent ac = new Intent(appContext, AccountActivity.class);
+                startActivity(ac);
+                return true;
             default:
                 return super.onOptionsItemSelected(item);
         }
