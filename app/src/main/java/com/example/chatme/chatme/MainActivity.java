@@ -4,9 +4,6 @@ import android.app.NotificationManager;
 import android.app.PendingIntent;
 import android.content.Context;
 import android.content.Intent;
-import android.content.SharedPreferences;
-import android.preference.PreferenceManager;
-import android.support.annotation.NonNull;
 import android.support.v4.app.NotificationCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -27,10 +24,7 @@ import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 
 import java.util.ArrayList;
-import java.util.Collection;
-import java.util.Iterator;
 import java.util.List;
-import java.util.ListIterator;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -83,10 +77,13 @@ public class MainActivity extends AppCompatActivity {
         btnSend.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                String id = myRef.push().getKey();
-                Messages msg = new Messages(UserName,txtUserComment.getText().toString());
-                myRef.child(id).setValue(msg);
-                txtUserComment.setText("");
+                String comment = txtUserComment.getText().toString();
+                if(!comment.trim().equals("")) {
+                    String id = myRef.push().getKey();
+                    Messages msg = new Messages(UserName, comment);
+                    myRef.child(id).setValue(msg);
+                    txtUserComment.setText("");
+                }
             }
         });
 
@@ -95,7 +92,7 @@ public class MainActivity extends AppCompatActivity {
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         MenuInflater inflater = getMenuInflater();
-        inflater.inflate(R.menu.logoutbutton, menu);
+        inflater.inflate(R.menu.topbuttons, menu);
         return true;
     }
 
